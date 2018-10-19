@@ -1,0 +1,34 @@
+<div style="background: white; margin: 5%">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" style="padding: 5%; margin-left: 20%">
+  <div fxLayout="column"  fxLayoutAlign="space-around" style="width: 400px">
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Project Title" type="text" [formControl]="form.controls['title']">
+      </mat-form-field>
+      <small *ngIf="form.controls['title'].hasError('required') && form.controls['title'].touched" class="mat-text-warn">You must include an email address.</small>
+    </div>
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <textarea matInput  placeholder="Project Descriptions" [formControl]="form.controls['description']"></textarea>
+      </mat-form-field>
+      <small *ngIf="form.controls['description'].hasError('required') && form.controls['description'].touched" class="mat-text-warn">You must include password.</small>
+    </div>
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <mat-select placeholder="Favorite animal" [formControl]="form.controls['user']" required multiple>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let animal of animals" [value]="animal">
+            {{animal.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['user'].hasError('required')">Please choose an animal</mat-error>
+      </mat-form-field>
+    </div>
+    <!--<div class="pb-1">
+      <input  placeholder="Attechment" type="file" ng2FileSelect [uploader]="uploader" [formControl]="form.controls['attechment']">
+      <small *ngIf="form.controls['attechment'].hasError('required') && form.controls['attechment'].touched" class="mat-text-warn">You must include an email address.</small>
+    </div>-->
+    <button mat-raised-button color="primary" class="btn-block" type="submit" [disabled]="!form.valid">Add Project</button>
+  </div>
+</form>
+</div>

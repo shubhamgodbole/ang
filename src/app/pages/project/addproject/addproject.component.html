@@ -1,0 +1,28 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div fxLayout="column"  fxLayoutAlign="space-around" style="width: 300px">
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <input matInput placeholder="Project Title" type="text" [formControl]="form.controls['title']">
+      </mat-form-field>
+      <small *ngIf="form.controls['title'].hasError('required') && form.controls['title'].touched" class="mat-text-warn">You must include an email address.</small>
+    </div>
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <textarea matInput  placeholder="Project Descriptions" [formControl]="form.controls['description']"></textarea>
+      </mat-form-field>
+      <small *ngIf="form.controls['description'].hasError('required') && form.controls['description'].touched" class="mat-text-warn">You must include password.</small>
+    </div>
+    <div class="pb-1">
+      <mat-form-field style="width: 100%">
+        <mat-select placeholder="Assign Employee" [formControl]="form.controls['user']" required multiple>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let emp of employee" [value]="emp">
+            {{emp.email}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['user'].hasError('required')">Please choose an user</mat-error>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" class="btn-block" type="submit" [disabled]="!form.valid">Add Project</button>
+  </div>
+</form>
